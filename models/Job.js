@@ -1,6 +1,7 @@
 const mongoose = require("mongoose");
+const Schema = mongoose.Schema;
 
-const jobSchema = new mongoose.Schema({
+const jobSchema = new Schema({
   title: {
     type: String,
     required: true,
@@ -21,16 +22,21 @@ const jobSchema = new mongoose.Schema({
     type: Number,
     required: true,
   },
+  employer: {
+    type: Schema.Types.ObjectId,
+    ref: "Employer", // Reference to the employer who posted the job
+    required: true,
+  },
+  applications: [
+    {
+      type: Schema.Types.ObjectId,
+      ref: "Application", // References to applications for this job
+    },
+  ],
   datePosted: {
     type: Date,
     default: Date.now,
   },
-  employer: {
-    type: mongoose.Schema.Types.ObjectId,
-    ref: "Employer",
-    required: true,
-  },
 });
 
-const Job = mongoose.model("Jobs", jobSchema);
-module.exports = Job;
+module.exports = mongoose.model("Job", jobSchema);

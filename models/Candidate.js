@@ -1,7 +1,7 @@
 const mongoose = require("mongoose");
 const Schema = mongoose.Schema;
 
-const employerSchema = new Schema({
+const candidateSchema = new Schema({
   name: {
     type: String,
     required: true,
@@ -15,20 +15,16 @@ const employerSchema = new Schema({
     type: String,
     required: true,
   },
-  companySize: {
-    type: String,
+  resume: {
+    type: String, // URL to resume file or resume data
     required: true,
   },
-  location: {
-    type: String,
-    required: true,
-  },
-  jobsPosted: [
+  appliedJobs: [
     {
       type: Schema.Types.ObjectId,
-      ref: "Job",
+      ref: "Job", // Array of jobIds the candidate has applied to
     },
-  ], // Array of jobIds the employer has posted
+  ],
 });
 
-module.exports = mongoose.model("Employer", employerSchema);
+module.exports = mongoose.model("Candidate", candidateSchema);

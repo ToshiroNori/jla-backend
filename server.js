@@ -12,7 +12,8 @@ app.use(cors());
 app.use(cookieParser());
 
 app.use("/api/employer", require("./routes/employerRoutes"));
-// app.use("/api/jobs", require("./routes/jobsRoutes"));
+app.use("/api/jobs", require("./routes/jobsRoutes"));
+app.use("/api/candidate", require("./routes/candidateRoutes"));
 
 app.listen(3000, () => {
   console.log("Server is running on port 3000");
