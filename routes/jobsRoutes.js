@@ -1,6 +1,7 @@
 const router = require("express").Router();
 const auth = require("../middleware/auth");
 const {
+  getAlljobs,
   getJobs,
   createJob,
   deleteJob,
@@ -8,7 +9,7 @@ const {
 } = require("../controllers/jobController");
 
 // Get all jobs for the logged-in employer
-router.get("/", auth, getJobs);
+router.get("/", auth, getAlljobs);
 
 // Create a new job (for the logged-in employer)
 router.post("/create", auth, createJob);
