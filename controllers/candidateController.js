@@ -1,5 +1,4 @@
 const Job = require("../models/Job");
-const auth = require("../middleware/auth");
 const jwt = require("jsonwebtoken");
 const bcrypt = require("bcrypt");
 const Candidate = require("../models/Candidate");
@@ -57,6 +56,7 @@ const registerCandidate = async (req, res) => {
 //LOGIN CANDIDATE CONTROLLER
 const loginCandidate = async (req, res) => {
   const { email, password } = req.body;
+  console.log("req body:", req.body);
 
   if (!email || !password) {
     return res.status(400).json({ message: "All fields are required" });
@@ -81,7 +81,7 @@ const loginCandidate = async (req, res) => {
       .cookie("token", token, {
         httpOnly: true,
         secure: process.env.NODE_ENV === "production", // set true in production
-        sameSite: "Strict", // or "Lax"
+        sameSite: process.env.NODE_ENV === "production" ? "None" : "Lax",
         maxAge: 7 * 24 * 60 * 60 * 1000, // 7 days
       })
       .status(200)
