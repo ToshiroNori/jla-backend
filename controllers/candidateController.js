@@ -161,7 +161,14 @@ const getAllApplications = async (req, res) => {
 
 //LOGOUT CANDIDATE CONTROLLLER
 const logoutCandidate = async (req, res) => {
-  res.clearCookie("token").status(200).json({ message: "Logout successful" });
+  res
+    .clearCookie("token", {
+      httpOnly: true,
+      secure: process.env.NODE_ENV === "production", // set true in production
+      sameSite: process.env.NODE_ENV === "production" ? "None" : "Lax",
+    })
+    .status(200)
+    .json({ message: "Logout successful" });
 };
 
 module.exports = {
